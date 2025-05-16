@@ -231,9 +231,7 @@ const PocketPoker = () => {
     setActionHistory(prev => [...prev, 'CALL']);
     setMessage('You called. Going to showdown...');
     
-    setTimeout(() => {
-      goToShowdown();
-    }, 1000);
+    setShowdown(true)
   };
 
   const cpuTurn = async (history: string[]) => {
