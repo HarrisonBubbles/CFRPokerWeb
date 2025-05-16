@@ -53,7 +53,7 @@ html, body, #root {
   }
   
   .chip-count {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     margin-bottom: 10px;
   }
   
@@ -79,7 +79,7 @@ html, body, #root {
   }
   
   .community-label {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     margin-bottom: 16px;
   }
   
@@ -104,7 +104,7 @@ html, body, #root {
     margin: 24px 0;
   }
   
-  .call-button, .raise-button {
+  .passive-button, .aggro-button {
     padding: 12px 32px;
     border-radius: 24px;
     font-size: 1.125rem;
@@ -114,23 +114,53 @@ html, body, #root {
     cursor: pointer;
   }
   
-  .call-button {
-    background-color: #2563eb;
-  }
-  
-  .call-button:hover {
-    background-color: #1d4ed8;
-  }
-  
-  .raise-button {
+  .passive-button {
     background-color: #dc2626;
   }
   
-  .raise-button:hover {
+  .passive-button:hover {
     background-color: #b91c1c;
   }
   
-  /* Player area styling */
+  .aggro-button {
+    background-color: #2563eb;
+  }
+  
+  .aggro-button:hover {
+    background-color: #1d4ed8;
+  }
+  
   .player-area {
     align-self: flex-start;
+  }
+
+  .pot-display {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #fcd34d; /* Gold color */
+  }
+
+  .message-display {
+    margin-top: 16px;
+    min-height: 24px;
+    font-size: 1.125rem;
+    text-align: center;
+    max-width: 80%;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+  }
+  
+  .waiting-message {
+    font-size: 1.125rem;
+    font-style: italic;
+    color: #d1d5db;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
   }

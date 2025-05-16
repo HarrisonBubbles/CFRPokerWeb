@@ -5,8 +5,8 @@ import PocketPoker from './PocketPoker';
 import Background from './Background';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  <>
     <Background />
     <PocketPoker/>
-  </StrictMode>,
+  </>,
 )
