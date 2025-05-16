@@ -294,7 +294,7 @@ const PocketPoker = () => {
           setCpuAction('FOLD');
           setActionHistory(prev => [...prev, 'FOLD']);
           setWinner('Player');
-          setPlayerChips(prevChips => prevChips + pot);
+          setPlayerChips(prevChips => prevChips + 3);
           setGameOver(true);
           setMessage('CPU folded. You win the pot!');
           break;
