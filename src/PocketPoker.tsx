@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import deckSprite from './assets/8BitDeck.png';
 import deckBack from './assets/back.png'
 import './PocketPoker.css';
 
-const rankToString = (rank) => {
+const rankToString = (rank: number) => {
   switch(rank) {
     case 12: return 'A';
     case 11: return 'K';
@@ -15,20 +15,19 @@ const rankToString = (rank) => {
 };
 
 
-const cardToString = (card) => {
+const cardToString = (card: number[]) => {
   if (!card) return '';
-  const [suit, rank] = card;
-  return rankToString(rank);
+  return rankToString(card[1]);
 };
 
-const evaluateHand = (hand, communityCard) => {
+const evaluateHand = (hand: number[][], communityCard: number[]) => {
   const cards = [...hand, communityCard];
   
   // Extract ranks and count them
   const ranks = cards.map(card => card[1]);
   
   // Count occurrences of each rank
-  const rankCounts = {};
+  const rankCounts: any = {};
   ranks.forEach(rank => {
     rankCounts[rank] = (rankCounts[rank] || 0) + 1;
   });
@@ -60,7 +59,7 @@ const evaluateHand = (hand, communityCard) => {
 };
 
 
-const compareHands = (evaluation1, evaluation2) => {
+const compareHands = (evaluation1: number[], evaluation2: number[]) => {
   const [type1, highCard1] = evaluation1;
   const [type2, highCard2] = evaluation2;
   
@@ -80,18 +79,13 @@ const PocketPoker = () => {
   const [cpuCards, setCpuCards] = useState<number[][]>([]);
   const [communityCard, setCommunityCard] = useState<number[]>([]);
   const [showdown, setShowdown] = useState<boolean>(false);
-  const [deck, setDeck] = useState([]);
 
   const [pot, setPot] = useState(0);
-  const [currentBet, setCurrentBet] = useState(0);
-  const [playerActed, setPlayerActed] = useState(false);
   const [cpuActed, setCpuActed] = useState(false);
-  const [playerAction, setPlayerAction] = useState(null);
   const [cpuAction, setCpuAction] = useState(null);
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [gameOver, setGameOver] = useState(false);
-  const [actionHistory, setActionHistory] = useState([]);
-  const [winner, setWinner] = useState(null);
+  const [actionHistory, setActionHistory] = useState<string[]>([]);
   const [message, setMessage] = useState('');
   
   const createAndShuffleDeck = () => {
@@ -124,24 +118,18 @@ const PocketPoker = () => {
     setPlayerCards(newPlayerCards);
     setCpuCards(newCpuCards);
     setCommunityCard(newCommunityCard);
-    
-    setDeck(newDeck.slice(5));
 
     setShowdown(false);
     setIsPlayerTurn(true);
-    setPlayerActed(false);
     setCpuActed(false);
-    setPlayerAction(null);
     setCpuAction(null);
     setActionHistory([]);
     setGameOver(false);
-    setWinner(null);
     setMessage('Your turn. Check or Raise?');
 
     setPlayerChips(prevChips => prevChips - 1);
     setCpuChips(prevChips => prevChips - 1);
     setPot(2);
-    setCurrentBet(1);
   };
   
   useEffect(() => {
@@ -171,10 +159,8 @@ const PocketPoker = () => {
   const handleCheck = () => {
     if (!isPlayerTurn || gameOver) return;
 
-    const newHistory = [...actionHistory, 'CHECK'];
+    const newHistory: any = [...actionHistory, 'CHECK'];
     
-    setPlayerAction('CHECK');
-    setPlayerActed(true);
     setActionHistory(newHistory);
     setMessage('You checked. CPU is thinking...');
     
@@ -210,10 +196,6 @@ const PocketPoker = () => {
     
     setPlayerChips(prevChips => prevChips - 1);
     setPot(prevPot => prevPot + 1);
-    setCurrentBet(2);
-    
-    setPlayerAction('RAISE');
-    setPlayerActed(true);
     setActionHistory(newHistory);
     setMessage('You raised. CPU is thinking...');
     
@@ -226,13 +208,10 @@ const PocketPoker = () => {
 
   const handleFold = () => {
     if (!isPlayerTurn || gameOver) return;
-    
-    setPlayerAction('FOLD');
-    setPlayerActed(true);
+
     setActionHistory(prev => [...prev, 'FOLD']);
     
     setCpuChips(prevChips => prevChips + pot);
-    setWinner('CPU');
     setGameOver(true);
     setMessage('You folded. CPU wins the pot!');
   };
@@ -248,8 +227,6 @@ const PocketPoker = () => {
     setPlayerChips(prevChips => prevChips - 1);
     setPot(prevPot => prevPot + 1);
     
-    setPlayerAction('CALL');
-    setPlayerActed(true);
     setIsPlayerTurn(false);
     setActionHistory(prev => [...prev, 'CALL']);
     setMessage('You called. Going to showdown...');
@@ -291,16 +268,13 @@ const PocketPoker = () => {
       
       switch (move) {
         case 0:
-          setCpuAction('FOLD');
           setActionHistory(prev => [...prev, 'FOLD']);
-          setWinner('Player');
           setPlayerChips(prevChips => prevChips + 3);
           setGameOver(true);
           setMessage('CPU folded. You win the pot!');
           break;
           
         case 1:
-          setCpuAction('CHECK');
           setActionHistory(prev => [...prev, 'CHECK']);
           setMessage('CPU checked. Going to showdown...');
           
@@ -311,7 +285,6 @@ const PocketPoker = () => {
           setCpuChips(prevChips => prevChips - 1);
           setPot(prevPot => prevPot + 1);
           
-          setCpuAction('CALL');
           setActionHistory(prev => [...prev, 'CALL']);
           setMessage('CPU called. Going to showdown...');
 
@@ -321,9 +294,7 @@ const PocketPoker = () => {
         case 3:
           setCpuChips(prevChips => prevChips - 1);
           setPot(prevPot => prevPot + 1);
-          setCurrentBet(2);
           
-          setCpuAction('RAISE');
           setActionHistory(prev => [...prev, 'RAISE']);
           setMessage('CPU raised. You can call, or fold.');
           
@@ -359,7 +330,6 @@ const PocketPoker = () => {
     const result = compareHands(playerEvaluation, cpuEvaluation);
 
     if (result === 1) {
-      setWinner('Player');
       setPlayerChips(prevChips => prevChips + pot);
       
       let handType = '';
@@ -372,7 +342,6 @@ const PocketPoker = () => {
       setMessage(`You win with ${handType}!`);
     } 
     else if (result === 2) {
-      setWinner('CPU');
       setCpuChips(prevChips => prevChips + pot);
       
       let handType = '';
@@ -388,7 +357,6 @@ const PocketPoker = () => {
       const halfPot = Math.floor(pot / 2);
       setPlayerChips(prevChips => prevChips + halfPot);
       setCpuChips(prevChips => prevChips + (pot - halfPot));
-      setWinner('Draw');
       setMessage('Tie game! The pot is split.');
     }
   };
