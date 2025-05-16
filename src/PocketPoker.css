@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('assets/font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* This helps with font loading performance */
+  }
+
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+
+.poker-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    color: white;
+    font-family: 'CustomFont', Arial, sans-serif;
+  }
+  
+
+  .poker-header {
+    text-align: center;
+    padding: 16px 0;
+    /* background-color: #1b4332; /* Darker green */
+  }
+  
+  .poker-header h1 {
+    margin: 0;
+    font-size: 4rem;
+    font-weight: bold;
+  }
+  
+  /* Main game area */
+  .game-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  /* CPU area styling */
+  .cpu-area {
+    align-self: flex-end;
+    text-align: right;
+  }
+  
+  .chip-count {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+  
+  .cards-container {
+    display: flex;
+  }
+  
+  .card {
+    width: 71px;
+    height: 95px;
+    background-color: white;
+    border-radius: 8px;
+    margin: 0 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Community card area */
+  .community-area {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .community-label {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+  
+  .community-card {
+    width: 80px;
+    height: 120px;
+    background-color: white;
+    color: black;
+    border-radius: 8px;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+  
+  /* Action buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 24px 0;
+  }
+  
+  .call-button, .raise-button {
+    padding: 12px 32px;
+    border-radius: 24px;
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .call-button {
+    background-color: #2563eb;
+  }
+  
+  .call-button:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .raise-button {
+    background-color: #dc2626;
+  }
+  
+  .raise-button:hover {
+    background-color: #b91c1c;
+  }
+  
+  /* Player area styling */
+  .player-area {
+    align-self: flex-start;
+  }

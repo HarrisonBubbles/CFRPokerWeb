@@ -1,4 +1,5 @@
 // WebGL shader code from https://github.com/Firch/BuncoWeb
+import './index.css';
 import { useEffect, useRef } from 'react';
 
 interface BackgroundProps {
