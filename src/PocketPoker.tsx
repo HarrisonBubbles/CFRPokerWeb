@@ -87,6 +87,30 @@ const PocketPoker = () => {
   const [gameOver, setGameOver] = useState(false);
   const [actionHistory, setActionHistory] = useState<string[]>([]);
   const [message, setMessage] = useState('');
+  const [backendReady, setBackendReady] = useState(false);
+
+  useEffect(() => {
+    const start = Date.now();
+
+    const checkBackend = async () => {
+      try {
+        const res = await fetch('https://cfrpoker.onrender.com/');
+        if (res.ok) {
+          const elapsed = Date.now() - start;
+          const remaining = Math.max(0, 1000 - elapsed);
+          setTimeout(() => {
+            setBackendReady(true);
+          }, remaining);
+        } else {
+          throw new Error('Not ready');
+        }
+      } catch (error) {
+        setTimeout(checkBackend, 3000);
+      }
+    };
+
+    checkBackend();
+  }, []);
   
   const createAndShuffleDeck = () => {
     const suits = [0, 1, 2, 3];
@@ -358,6 +382,22 @@ const PocketPoker = () => {
       setMessage('Tie game! The pot is split.');
     }
   };
+
+  if (!backendReady) {
+    return (
+      <div className="loading-screen">
+      <div className="loading-content">
+        <h2>Pocket Poker!</h2>
+        <p>Spinning up app, this may take a minute...</p>
+        <div className="loading-cards">
+          <div className="loading-card"></div>
+          <div className="loading-card"></div>
+          <div className="loading-card"></div>
+        </div>
+      </div>
+    </div>
+    );
+  }
   
   return (
     <div className="poker-app">

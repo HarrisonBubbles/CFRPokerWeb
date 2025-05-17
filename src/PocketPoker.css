@@ -11,7 +11,7 @@ html, body, #root {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
   }
 
 
@@ -163,4 +163,90 @@ html, body, #root {
     0% { opacity: 0.6; }
     50% { opacity: 1; }
     100% { opacity: 0.6; }
+  }
+
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .loading-content {
+    text-align: center;
+    color: white;
+    max-width: 80%;
+  }
+  
+  .loading-content {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'CustomFont', Arial, sans-serif;
+  }
+
+  .loading-content h2 {
+    margin: 0;
+    /*animation: title-pulse 3s infinite ease-in-out;*/
+  }
+
+  .loading-content p {
+    margin: 0;
+    margin-bottom: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .loading-cards {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 2rem;
+  }
+  
+  .loading-card {
+    width: 71px;
+    height: 95px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: card-pulse 1s infinite ease-in-out;
+  }
+  
+  .loading-card:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  
+  .loading-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes title-pulse {
+    0% {
+      scale: 1;
+    }
+    50% {
+      scale: 1.25;
+    }
+    100% {
+      scale: 1;
+    }
+  }
+  
+  @keyframes card-pulse {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
