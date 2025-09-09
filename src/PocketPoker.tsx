@@ -14,7 +14,6 @@ const rankToString = (rank: number) => {
   }
 };
 
-
 const cardToString = (card: number[]) => {
   if (!card) return '';
   return rankToString(card[1]);
@@ -57,7 +56,6 @@ const evaluateHand = (hand: number[][], communityCard: number[]) => {
   console.log('High card:', highRank);
   return [1, highRank];
 };
-
 
 const compareHands = (evaluation1: number[], evaluation2: number[]) => {
   const [type1, highCard1] = evaluation1;
@@ -390,9 +388,9 @@ const PocketPoker = () => {
         <h2>Pocket Poker!</h2>
         <p>Spinning up app, this may take a minute...</p>
         <div className="loading-cards">
-          <div className="loading-card"></div>
-          <div className="loading-card"></div>
-          <div className="loading-card"></div>
+          <div className="loading-card" style={getCardStyle([], true)}></div>
+          <div className="loading-card" style={getCardStyle([], true)}></div>
+          <div className="loading-card" style={getCardStyle([], true)}></div>
         </div>
       </div>
     </div>
@@ -433,59 +431,60 @@ const PocketPoker = () => {
             ></div>
           )}
           <div className="message-display">{message}</div>
+
+          {/* Action buttons */}
+          <div className="action-buttons">
+          {!gameOver ? (
+              <>
+                {isPlayerTurn && (
+                  <>
+                    {!actionHistory.includes('RAISE') && (
+                      <>
+                    <button 
+                      onClick={handleCheck} 
+                      className="passive-button"
+                    >
+                      Check
+                    </button>
+                    <button 
+                      onClick={handleRaise} 
+                      className="aggro-button"
+                    >
+                      Raise
+                    </button> </>)}
+                    {actionHistory.includes('RAISE') && (
+                      <>
+                        <button 
+                          onClick={handleFold} 
+                          className="passive-button"
+                        >
+                          Fold
+                        </button>
+                        <button 
+                          onClick={handleCall} 
+                          className="aggro-button"
+                        >
+                          Call
+                        </button>
+                      </>
+                    )}
+                  </>
+                )}
+                {!isPlayerTurn && (
+                  <div className="waiting-message">CPU is thinking...</div>
+                )}
+              </>
+            ) : (
+              <button 
+                onClick={dealHand} 
+                className="aggro-button"
+              >
+                New Round
+              </button>
+            )}
+          </div>
         </div>
         
-        {/* Action buttons */}
-        <div className="action-buttons">
-        {!gameOver ? (
-            <>
-              {isPlayerTurn && (
-                <>
-                  {!actionHistory.includes('RAISE') && (
-                    <>
-                  <button 
-                    onClick={handleCheck} 
-                    className="passive-button"
-                  >
-                    Check
-                  </button>
-                  <button 
-                    onClick={handleRaise} 
-                    className="aggro-button"
-                  >
-                    Raise
-                  </button> </>)}
-                  {actionHistory.includes('RAISE') && (
-                    <>
-                      <button 
-                        onClick={handleFold} 
-                        className="passive-button"
-                      >
-                        Fold
-                      </button>
-                      <button 
-                        onClick={handleCall} 
-                        className="aggro-button"
-                      >
-                        Call
-                      </button>
-                    </>
-                  )}
-                </>
-              )}
-              {!isPlayerTurn && (
-                <div className="waiting-message">CPU is thinking...</div>
-              )}
-            </>
-          ) : (
-            <button 
-              onClick={dealHand} 
-              className="aggro-button"
-            >
-              New Round
-            </button>
-          )}
-        </div>
         
         {/* Player area */}
         <div className="player-area">

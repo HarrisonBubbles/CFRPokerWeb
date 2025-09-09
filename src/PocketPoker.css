@@ -41,9 +41,10 @@ html, body, #root {
   .game-area {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     padding: 20px;
+    padding-top: 0;
   }
   
   /* CPU area styling */
@@ -59,6 +60,7 @@ html, body, #root {
   
   .cards-container {
     display: flex;
+    justify-content: center;
   }
   
   .card {
@@ -250,3 +252,35 @@ html, body, #root {
       transform: translateY(0);
     }
   }
+  /* Add this to make components stack vertically when narrow */
+@media (max-width: 623px) {
+  .game-area {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .poker-header h1 {
+    font-size: 3rem;
+  }
+  
+  .cpu-area,
+  .community-area,
+  .player-area {
+    align-self: center;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .player-area {
+    order: 1;
+  }
+  
+  .community-area {
+    order: 2;
+  }
+
+  .cpu-area {
+    order: 3;
+  }
+}
