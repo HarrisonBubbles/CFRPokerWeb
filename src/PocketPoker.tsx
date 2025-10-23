@@ -470,9 +470,6 @@ const PocketPoker = () => {
                     )}
                   </>
                 )}
-                {!isPlayerTurn && (
-                  <div className="waiting-message">CPU is thinking...</div>
-                )}
               </>
             ) : (
               <button 
